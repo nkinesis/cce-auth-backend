@@ -18,7 +18,7 @@ exports.login = async (req, res) => {
         // else, create a session
         if (session && !isTokenExpired) {
             console.log("use existing")
-            token = session.token
+            token = session.token 
         } else {
             console.log("create new")
             session = await sessions.create(user.id)
@@ -33,7 +33,8 @@ exports.login = async (req, res) => {
 }
 
 exports.isLoggedIn = async (req, res) => {
-    var token = req.body.token
+    var token = req.get("Authorization")
+    console.log(token)
     if (token) {
         let session = await sessions.findByToken(token)
         if (session) {
