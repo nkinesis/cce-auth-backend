@@ -1,0 +1,12 @@
+node_modules
+build
+logs
+db.config.js
+
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
