@@ -14,7 +14,7 @@ exports.login = async (req, res) => {
         let isTokenExpired = session ? (new Date(session.validUntil) - new Date() <= 0) : true
         var token = ""
 
-        // if the session exists and is not expired, go on
+        // if the session exists and is not expired, continue
         // else, create a session
         if (session && !isTokenExpired) {
             console.log("use existing")
