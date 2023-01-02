@@ -10,12 +10,13 @@ const Session = require("../models/session.model")(Sequelize.connection, Sequeli
 // Create session for user
 exports.create = async (id) => {
 
-    let validity =  moment().add(25,'minutes').format()
+    let validity = moment().add(25,"minutes").format("YYYY-MM-DD HH:mm:ss")
     const obj = {
         token: uuidv4(),
         validUntil: validity,
         userId: id
     };
+    console.log(validity)
 
     // Save in the database
     var result = {};

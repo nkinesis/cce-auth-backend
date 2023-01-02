@@ -4,7 +4,7 @@ const auth = require("../auth.js");
 const sessions = require("../controllers/session.controller");
 
 router.post("/", auth.login);
-router.post("/check", async (req, res) => {
+router.get("/check", async (req, res) => {
     let isLoggedIn = await auth.isLoggedIn(req, res)
     if (isLoggedIn) {
         res.send(JSON.stringify({ isLoggedIn: true }))
