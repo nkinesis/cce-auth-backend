@@ -8,12 +8,13 @@ const Session = require("../models/session.model")(
   Sequelize.connection,
   Sequelize.library
 );
+const logToFile = require("../logger");
 
 /* END db initialization */
 
 // Create session for user
 exports.create = async (id) => {
-  let validity = moment()
+  const validity = moment()
     .add(config.sessionDuration, "minutes")
     .format("YYYY-MM-DD HH:mm:ss");
   const obj = {
@@ -21,16 +22,18 @@ exports.create = async (id) => {
     validUntil: validity,
     userId: id,
   };
-  console.log(validity);
 
   // Save in the database
   var result = {};
   await Session.create(obj)
     .then((data) => {
       result = data;
+      logToFile(
+        `Token ${obj.token} was created and will be valid until ${validity}`
+      );
     })
     .catch((e) => {
-      console.log("error", e);
+      logToFile(`An error occurred while creating token: ${e.message}`);
     });
   return result;
 };
@@ -39,12 +42,13 @@ exports.create = async (id) => {
 exports.findByUserId = async (id) => {
   var condition = id ? { userId: { [Op.eq]: id } } : null;
   var result = {};
+  logToFile(`Searching for user ${id}`);
   await Session.findOne({ where: condition })
     .then((data) => {
       result = data;
     })
     .catch((e) => {
-      console.log("Error", e);
+      logToFile(`An error occurred while searching for user: ${e.message}`);
     });
   return result;
 };
@@ -53,12 +57,13 @@ exports.findByUserId = async (id) => {
 exports.findByToken = async (token) => {
   var condition = token ? { token: { [Op.eq]: token } } : null;
   var result = {};
+  logToFile(`Searching for user with token ${token}`);
   await Session.findOne({ where: condition })
     .then((data) => {
       result = data;
     })
     .catch((e) => {
-      console.log("Error", e);
+      logToFile(`An error occurred while searching for user: ${e.message}`);
     });
   return result;
 };
