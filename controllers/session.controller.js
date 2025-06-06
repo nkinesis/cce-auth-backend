@@ -24,7 +24,7 @@ exports.create = async (id) => {
   };
 
   // Save in the database
-  var result = {};
+  let result = {};
   await Session.create(obj)
     .then((data) => {
       result = data;
@@ -40,8 +40,8 @@ exports.create = async (id) => {
 
 // Get session by user id
 exports.findByUserId = async (id) => {
-  var condition = id ? { userId: { [Op.eq]: id } } : null;
-  var result = {};
+  const condition = id ? { userId: { [Op.eq]: id } } : null;
+  let result = {};
   logToFile(`Searching for user ${id}`);
   await Session.findOne({ where: condition })
     .then((data) => {
@@ -55,8 +55,8 @@ exports.findByUserId = async (id) => {
 
 // Get session by token
 exports.findByToken = async (token) => {
-  var condition = token ? { token: { [Op.eq]: token } } : null;
-  var result = {};
+  const condition = token ? { token: { [Op.eq]: token } } : null;
+  let result = {};
   logToFile(`Searching for user with token ${token}`);
   await Session.findOne({ where: condition })
     .then((data) => {

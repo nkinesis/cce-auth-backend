@@ -5,7 +5,7 @@ const config = require("./config");
 const logFile = path.join(__dirname, "app.log");
 
 function logToFile(...args) {
-  // log to a file
+  // Log to a file
   if (config.logToFile) {
     const timestamp = new Date().toISOString();
     const message = args

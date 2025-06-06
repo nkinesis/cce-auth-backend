@@ -3,7 +3,7 @@ const sessions = require("./controllers/session.controller");
 const logToFile = require("./logger");
 
 exports.login = async (req, res) => {
-  let user = await users.findByUsername(req, res);
+  const user = await users.findByUsername(req, res);
   // if the user exists and password matches
   logToFile(`Login request initiated by user ${user.id}.`);
   if (user && user.id && user.password === req.body.password) {
@@ -11,10 +11,10 @@ exports.login = async (req, res) => {
     let session = await sessions.findByUserId(user.id);
 
     // if there is a session, check if it's expired
-    let isTokenExpired = session
+    const isTokenExpired = session
       ? new Date(session.validUntil) - new Date() <= 0
       : true;
-    var token = "";
+    let token = "";
 
     // if the session exists and is not expired, continue
     // else, create a session
@@ -39,9 +39,9 @@ exports.isLoggedIn = async (req, res) => {
   const token = req.get("Authorization");
   logToFile(`Login check requested for token ${token}.`);
   if (token) {
-    let session = await sessions.findByToken(token);
+    const session = await sessions.findByToken(token);
     if (session) {
-      let isTokenExpired = new Date(session.validUntil) - new Date() <= 0;
+      const isTokenExpired = new Date(session.validUntil) - new Date() <= 0;
       if (session && !isTokenExpired) {
         logToFile(
           `The token ${token} is OK and valid until ${session.validUntil}`

@@ -39,9 +39,8 @@ exports.create = (req, res) => {
 // Get all records with a certain username (sent from the front-end)
 exports.findByUsername = async (req, res) => {
   const username = req.body.username;
-  var condition = username ? { username: { [Op.eq]: username } } : null;
-
-  var result;
+  const condition = username ? { username: { [Op.eq]: username } } : null;
+  let result;
   await User.findOne({ where: condition })
     .then((data) => {
       result = data;

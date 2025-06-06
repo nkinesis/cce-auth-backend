@@ -39,13 +39,14 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-// Initial table creation
+// Create users table
 const User = require("./models/user.model")(
   Sequelize.connection,
   Sequelize.library
 );
 User.sync({ force: false, alter: true });
 
+// Create sessions table (depends on users)
 setTimeout(() => {
   const Session = require("./models/session.model")(
     Sequelize.connection,
@@ -53,6 +54,6 @@ setTimeout(() => {
   );
   Session.belongsTo(User);
   Session.sync({ force: false, alter: true });
-}, 5000);
+}, 2500);
 
 module.exports = app;

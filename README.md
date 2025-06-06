@@ -1,6 +1,8 @@
-# CCE Express Sequelize
-Express + Sequelize app for AWP MOD8, Concordia Continuing Education
+# Express Sequelize Auth
+
+Express + Sequelize app for simple token-based authentication
 
 # Setup
-- npm install
-- npm run start
+
+- yarn install
+- yarn start
