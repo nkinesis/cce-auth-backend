@@ -1,7 +1,7 @@
 node_modules
 build
 logs
-db.config.js
+config.js
 
 *.seed
 *.log

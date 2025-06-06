@@ -2,6 +2,7 @@
 const { Op } = require("sequelize");
 const { v4: uuidv4 } = require("uuid");
 const moment = require("moment");
+const config = require("../config.js");
 const Sequelize = require("../db.connection");
 const Session = require("../models/session.model")(
   Sequelize.connection,
@@ -12,7 +13,9 @@ const Session = require("../models/session.model")(
 
 // Create session for user
 exports.create = async (id) => {
-  let validity = moment().add(60, "minutes").format("YYYY-MM-DD HH:mm:ss");
+  let validity = moment()
+    .add(config.sessionDuration, "minutes")
+    .format("YYYY-MM-DD HH:mm:ss");
   const obj = {
     token: uuidv4(),
     validUntil: validity,
